@@ -1,0 +1,38 @@
+{
+  "name": "yt-download",
+  "email": "rop@ropsoft.cloud",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "version": "1.2.1",
+  "bin": {
+    "yt-download": "bin/index.js"
+  },
+  "type": "module",
+  "author": "ropsoft",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rop7/yt-download.git"
+  },
+  "license": "ISC",
+  "description": "Package for starting RSP Desktop session",
+  "node_deb": {
+    "init": "none",
+    "entrypoints": {
+      "app": "bin/index.mjs"
+    },
+    "dependencies": [
+      "ffmpeg",
+      "yt-dlp"
+    ],
+    "bin": "yt-download"
+  },
+  "aptdeps": {
+    "ffmpeg": "ffmpeg",
+    "yt-dlp": "yt-dlp"
+  },
+  "dependencies": {
+    "inquirer": "^12.9.4",
+    "shelljs": "^0.10.0"
+  }
+}
