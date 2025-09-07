@@ -26,7 +26,7 @@ function main () {
     console.log("\n  ~ Starting YouTube video download.");
     console.log("  ~ YouTube video URL/code:", ytUrlOrCode);
 
-    const tempDir = `/tmp/yt-download/${ytUrlOrCode.replace(/[^a-zA-Z0-9]/g, "_")}/`;
+    const tempDir = `/tmp/youget/${ytUrlOrCode.replace(/[^a-zA-Z0-9]/g, "_")}/`;
 
     shelljs.exec(`mkdir -p ${tempDir}`);
     

@@ -2,4 +2,4 @@
 
 echo;
 echo "  ~ Running script before debian package uninstall..."
-echo "  ~ This is yt-download pre uninstall script. "
+echo "  ~ This is youget pre uninstall script. "
