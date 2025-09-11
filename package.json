@@ -23,9 +23,5 @@
   "aptdeps": [
     "ffmpeg",
     "yt-dlp"
-  ],
-  "dependencies": {
-    "inquirer": "^12.9.4",
-    "shelljs": "^0.10.0"
-  }
+  ]
 }
