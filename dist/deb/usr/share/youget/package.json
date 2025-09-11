@@ -1,0 +1,31 @@
+{
+  "name": "youget",
+  "email": "rop@ropsoft.cloud",
+  "version": "1.2.1",
+  "bin": {
+    "youget": "src/bin/index.js"
+  },
+  "type": "module",
+  "author": "ropsoft",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rop7/youget.git"
+  },
+  "license": "ISC",
+  "description": "Package for direct video/audio downloading",
+  "node_deb": {
+    "init": "none",
+    "dependencies": [
+      "ffmpeg",
+      "yt-dlp"
+    ]
+  },
+  "aptdeps": [
+    "ffmpeg",
+    "yt-dlp"
+  ],
+  "dependencies": {
+    "inquirer": "^12.9.4",
+    "shelljs": "^0.10.0"
+  }
+}
