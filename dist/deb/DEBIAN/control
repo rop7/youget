@@ -1,0 +1,8 @@
+Package: youget
+Version: 1.2.1
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: ropsoft <rop@ropsoft.cloud>
+Description: Package for direct video/audio downloading
+Depends: ffmpeg,yt-dlp

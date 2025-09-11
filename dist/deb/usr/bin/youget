@@ -1,0 +1,3 @@
+#!/bin/bash
+cd "/usr/share/rsp/youget"
+exec /usr/share/rsp/youget/src/bin/index.js "$@"
