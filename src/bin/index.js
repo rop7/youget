@@ -1,77 +1,48 @@
 #!/bin/env -S node --no-warnings 
- 
+
+import RSp from '@rop7/rsp-libcore.js'
 import shelljs from "shelljs";
+import api from '../api/index.js';
+import music from '../api/music.js';
 
-const home = process.env.HOME;
-const musicDir = home + "/Space/Music";
+const logger = new RSp.Logger();
 
-function main () {
+function main() {
+
+    new RSp.Cli('youget', {
         
-    const args = process.argv[2] || process.argv[3];
+        music: {
+            description: "Download audio from YouTube video.",
+            example: "youget music <YouTube video URL or code>",
+            execute () {
 
-    // console.log("Args:", args);
+                const ytUrlOrCode = process.argv[3];
 
-    if (!args) {
-        console.error("Please Youtube video URL or code.");
-        process.exit(1);
-    }
+                if (!ytUrlOrCode) {
+                    logger.error("Please provide a YouTube video URL or code.");
+                    process.exit(1);
+                }
 
-    const ytUrlOrCode = args;
+                api.music(ytUrlOrCode);
+            }
+        },
 
-    if (!shelljs.which("yt-dlp")) {
-        console.error("Error: yt-dlp is not installed.");
-        process.exit(1);
-    }
+        video: {
+            description: "Download video from YouTube video.",
+            example: "youget video <YouTube video URL or code>",
+            execute () {
 
-    console.log("\n  ~ Starting YouTube video download.");
-    console.log("  ~ YouTube video URL/code:", ytUrlOrCode);
+                const ytUrlOrCode = process.argv[3];
 
-    const tempDir = `/tmp/youget/${ytUrlOrCode.replace(/[^a-zA-Z0-9]/g, "_")}/`;
+                if (!ytUrlOrCode) {
+                    logger.error("Please provide a YouTube video URL or code.");
+                    process.exit(1);
+                }
 
-    shelljs.exec(`mkdir -p ${tempDir}`);
-    
-    const downloadProcess = shelljs.exec(`cd ${tempDir} && /usr/bin/yt-dlp -x --audio-format mp3 --audio-quality 0 ` + ytUrlOrCode + ` && ls ${tempDir}`, { silent: true });
-
-    if (downloadProcess.code !== 0) {
-        
-        console.error("     - Fail downloading video: \n")
-        console.error("    ", downloadProcess.stderr);
-        
-        shelljs.exec(`rm -rf ${tempDir}`);
-
-        return;
-    }
-
-    console.log("  ~ Downloaded video: " + ytUrlOrCode);
-
-    const downloadedFiles = shelljs.ls(tempDir + "*.mp3");
-
-    if (downloadedFiles.length === 0) {
-        console.error("No audio files were downloaded for video: " + ytUrlOrCode);
-        return;
-    }
-
-    downloadedFiles.forEach(filePath => {
-
-        const fileName = filePath.split("/").pop();
-        const trackFriendlyName = fileName.replace(/[^a-zA-Z0-9]/g, "_").replace('mp3', '');
-        const newFilePath = musicDir + "/" + trackFriendlyName;
-
-        shelljs.exec(`mkdir -p "${musicDir}"`);
-        shelljs.exec(`mv "${filePath}" "${newFilePath}.mp3"`);
-
-        console.log("  ~ Moved file to: " + newFilePath + ".mp3");
-
-        shelljs.exec(`rm -rf ${tempDir}`);
-
-        console.log("  ~ Finished processing video: " + ytUrlOrCode);
-        console.log("  ~ Playing downloaded tracks...");
-
-        shelljs.exec(`cd "${musicDir}" && open ${newFilePath}.mp3`, { async: false });
-
-        process.exit(0);
-        
-    });
+                api.video(ytUrlOrCode);
+            }
+        }
+    })
 
 }
 
